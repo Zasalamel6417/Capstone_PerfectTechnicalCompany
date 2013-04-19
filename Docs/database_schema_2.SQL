@@ -2,8 +2,8 @@ EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'HGP_CAPSTONE'
 GO
 USE [master]
 GO
---ALTER DATABASE [HGP_CAPSTONE] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
---GO
+ALTER DATABASE [HGP_CAPSTONE] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
+GO
 USE [master]
 GO
 DROP DATABASE [HGP_CAPSTONE]
@@ -109,7 +109,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Credi
 GO
 CREATE TABLE [dbo].[CreditCard] (
 [cardID] INTEGER  NOT NULL  
-, [cardNumber] INTEGER  NOT NULL  
+, [cardNumberHash] VARCHAR(128)  NOT NULL  
 , [cardTypeID] INTEGER  NOT NULL  
 )
 GO
@@ -194,7 +194,8 @@ GO
 CREATE TABLE [dbo].[AvailableTickets] (
 [eventID] INTEGER  NOT NULL  
 , [sectionID] INTEGER  NOT NULL  
-, [tickets] INTEGER  NOT NULL  
+, [ticketsAvail] INTEGER  NOT NULL  
+, [ticketsSold] INTEGER  NOT NULL  
 , [price] DECIMAL(10,2)  NOT NULL  
 )
 GO
@@ -261,7 +262,7 @@ GO
 CREATE TABLE [dbo].[Orders] (
 [orderID] INTEGER  NOT NULL  
 , [custID] INTEGER  NOT NULL  
-, [orderTotal] DECIMAL  NOT NULL  
+, [orderTotal] DECIMAL(10,2)  NOT NULL  
 , [isPickup] BIT  NOT NULL  
 , [orderDate] DATETIME  NOT NULL  
 , [orderTime] DATETIME  NULL  
